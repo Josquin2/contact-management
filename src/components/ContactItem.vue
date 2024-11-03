@@ -2,6 +2,10 @@
 import { Contact } from "@/types/contact";
 import { defineProps } from "vue";
 import EditIcon from "./icons/EditIcon.vue";
+import useModal from "./modalManager";
+
+// Destructuring modal manager to get the openModal function
+const { openModal } = useModal();
 
 defineProps<{ contact: Contact }>();
 </script>
@@ -13,7 +17,8 @@ defineProps<{ contact: Contact }>();
       <h4>{{ contact?.email }}</h4>
       <h4>{{ contact?.phone }}</h4>
     </div>
-    <button class="item__edit">
+    <!-- Edit button for opening the modal to edit contact -->
+    <button class="item__edit" @click="openModal('edit', contact)">
       <EditIcon />
     </button>
   </div>

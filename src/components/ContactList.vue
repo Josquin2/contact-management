@@ -4,8 +4,10 @@ import ContactItem from "./ContactItem.vue";
 import type { Contact } from "@/types/contact";
 import { defineProps } from "vue";
 
+// Define component props with TypeScript type checking
 const props = defineProps<{ contacts: Contact[]; search: string }>();
 
+// Computed property to filter contacts based on the search term
 const filteredContacts = computed(() => {
   return props.contacts.filter((contact) => {
     const searchTerm = props.search.toLowerCase();
@@ -52,7 +54,8 @@ const filteredContacts = computed(() => {
 .fade-leave-active {
   transition: 0.7s;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active в версиях до 2.1.8 */ {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
   margin-bottom: 0;
   border: 0;

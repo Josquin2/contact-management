@@ -1,32 +1,42 @@
 <script setup lang="ts">
 import SearchBar from "./components/SearchBar.vue";
 import ContactList from "./components/ContactList.vue";
-import ContactForm from "./components/ContactForm.vue";
+import ModalManager from "./components/ModalManager.vue";
 import { Contact } from "./types/contact";
 import { type Ref, ref, onMounted } from "vue";
+import { Api } from "./ApiClass";
 
-async function fetchData() {
+// Function to fetch cached data from localStorage
+function fetchCachedData() {
   const cachedContacts = localStorage.getItem("contacts");
   if (cachedContacts) {
     contacts.value = JSON.parse(cachedContacts);
   }
-  try {
-    const response = await fetch("something");
-    const data = await response.json();
-    contacts.value = data;
-    localStorage.setItem("contacts", JSON.stringify(data));
-  } catch (error) {
-    console.error("Failed to fetch contacts:", error);
-  }
-  console.log(contacts.value);
+}
+
+// Function to fetch remote data from the API and update local cache
+async function fetchRemoteData() {
+  const response = await ApiClass.getObjects("contacts");
+  contacts.value = response;
+  setCacheData();
+}
+
+// Function to cache data to localStorage
+function setCacheData() {
+  localStorage.setItem("contacts", JSON.stringify(contacts.value));
 }
 
 onMounted(() => {
-  fetchData();
+  fetchCachedData();
+  fetchRemoteData();
 });
+const ApiClass = new Api();
 
+// Reactive variable to store contact list
 const contacts: Ref<Contact[]> = ref([]);
-const search = ref("");
+
+// Reactive variable for search term
+const search: Ref<string> = ref("");
 </script>
 
 <template>
@@ -34,9 +44,15 @@ const search = ref("");
     <SearchBar @search="(value) => (search = value)" />
     <ContactList :contacts="contacts" :search="search" />
   </div>
-  <div class="modal-block">
-    <!-- all modals should go here -->
-    <ContactForm />
+  <div class="modal-block" id="modals">
+    <ModalManager
+      @update-contacts="
+        (newContacts) => {
+          contacts = newContacts;
+          setCacheData();
+        }
+      "
+    />
   </div>
 </template>
 

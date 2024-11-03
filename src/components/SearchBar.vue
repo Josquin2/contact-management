@@ -2,9 +2,15 @@
 import { defineEmits } from "vue";
 import PlusIcon from "./icons/PlusIcon.vue";
 import SearchIcon from "./icons/SearchIcon.vue";
+import useModal from "./modalManager";
 
+// Destructuring openModal function from modal manager
+const { openModal } = useModal();
+
+// Define emit events
 const emit = defineEmits(["search"]);
 
+// Function to update search term and emit search event
 function updateSearch(event: Event) {
   const target = event.target as HTMLInputElement;
   if (target) {
@@ -12,6 +18,11 @@ function updateSearch(event: Event) {
     console.log(value);
     emit("search", value);
   }
+}
+
+// Function to open create modal
+function openCreateModal() {
+  openModal("create");
 }
 </script>
 
@@ -25,7 +36,7 @@ function updateSearch(event: Event) {
       placeholder="Search..."
       class="search__input"
     />
-    <button class="search--bar--icon">
+    <button class="search--bar--icon" @click="openCreateModal()">
       <PlusIcon />
     </button>
   </div>
