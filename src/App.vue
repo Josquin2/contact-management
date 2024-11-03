@@ -65,4 +65,10 @@ const search: Ref<string> = ref("");
   margin: auto;
   padding-top: 3rem;
 }
+
+@media only screen and (max-width: 750px) {
+  .contact-management-page {
+    padding: 2rem 1rem;
+  }
+}
 </style>

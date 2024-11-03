@@ -270,4 +270,15 @@ const v$ = useVuelidate(rules, { contactName, contactPhone, contactEmail });
     }
   }
 }
+
+@media only screen and (max-width: 650px) {
+  .create-contact-block {
+    padding: 1.5rem;
+    .input-block {
+      .input {
+        width: 70vw;
+      }
+    }
+  }
+}
 </style>
