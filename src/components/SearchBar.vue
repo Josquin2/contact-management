@@ -2,7 +2,7 @@
 import { defineEmits } from "vue";
 import PlusIcon from "./icons/PlusIcon.vue";
 import SearchIcon from "./icons/SearchIcon.vue";
-import useModal from "./modalManager";
+import useModal from "../ModalManager";
 
 // Destructuring openModal function from modal manager
 const { openModal } = useModal();
@@ -66,3 +66,4 @@ function openCreateModal() {
   border-left: 1px solid #b1b1b1;
 }
 </style>
+../modalManager../ModalManager

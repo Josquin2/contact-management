@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import SearchBar from "./components/SearchBar.vue";
 import ContactList from "./components/ContactList.vue";
-import ModalManager from "./components/ModalManager.vue";
+import ContactForm from "./components/ContactForm.vue";
 import { Contact } from "./types/contact";
 import { type Ref, ref, onMounted } from "vue";
 import { Api } from "./ApiClass";
+import useModal from "./ModalManager";
 
 // Function to fetch cached data from localStorage
 function fetchCachedData() {
@@ -37,6 +38,8 @@ const contacts: Ref<Contact[]> = ref([]);
 
 // Reactive variable for search term
 const search: Ref<string> = ref("");
+
+const { modalMode, modalData } = useModal();
 </script>
 
 <template>
@@ -45,10 +48,16 @@ const search: Ref<string> = ref("");
     <ContactList :contacts="contacts" :search="search" />
   </div>
   <div class="modal-block" id="modals">
-    <ModalManager
+    <!-- modals should be here -->
+    <ContactForm
+      :id="modalData.id"
+      :name="modalData.name"
+      :phone="modalData.phone"
+      :email="modalData.email"
+      :mode="modalMode"
       @update-contacts="
-        (newContacts) => {
-          contacts = newContacts;
+        (contact) => {
+          contacts = contact;
           setCacheData();
         }
       "
@@ -72,3 +81,4 @@ const search: Ref<string> = ref("");
   }
 }
 </style>
+./ModalManager

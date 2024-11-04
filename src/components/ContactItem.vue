@@ -2,7 +2,7 @@
 import { Contact } from "@/types/contact";
 import { defineProps } from "vue";
 import EditIcon from "./icons/EditIcon.vue";
-import useModal from "./modalManager";
+import useModal from "../ModalManager";
 
 // Destructuring modal manager to get the openModal function
 const { openModal } = useModal();
@@ -55,3 +55,4 @@ defineProps<{ contact: Contact }>();
   color: #585858;
 }
 </style>
+../modalManager
