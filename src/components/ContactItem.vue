@@ -18,7 +18,11 @@ defineProps<{ contact: Contact }>();
       <h4>{{ contact?.phone }}</h4>
     </div>
     <!-- Edit button for opening the modal to edit contact -->
-    <button class="item__edit" @click="openModal('edit', contact)">
+    <button
+      class="item__edit"
+      @click="openModal('edit', contact)"
+      v-show="contact?.id != 'not found'"
+    >
       <EditIcon />
     </button>
   </div>

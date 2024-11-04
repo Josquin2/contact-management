@@ -32,6 +32,16 @@ const filteredContacts = computed(() => {
       :contact="contact"
     />
   </transition-group>
+
+  <ContactItem
+    v-else
+    :contact="{
+      name: 'Contact not found!',
+      email: '',
+      phone: '',
+      id: 'not found',
+    }"
+  />
 </template>
 
 <style lang="css">
