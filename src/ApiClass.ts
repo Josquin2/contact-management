@@ -2,7 +2,8 @@ export class Api {
   protected readonly url: string;
 
   constructor() {
-    this.url = "something";
+    // I used my remote server so I don't need to put it in the .env file
+    this.url = "http://85.193.90.176:5100";
   }
 
   private async request(
